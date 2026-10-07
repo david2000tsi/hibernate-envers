@@ -1,6 +1,7 @@
 package com.java.envers.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,6 +33,11 @@ public class ProdutoController {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ProdutoDto> buscar(@PathVariable Integer id) {
 		return ResponseEntity.ok(this.produtoService.buscar(id));
+	}
+
+	@GetMapping(value = "/historico/{id}")
+	public ResponseEntity<Map<Integer, ProdutoDto>> buscarHistorico(@PathVariable Integer id) {
+		return ResponseEntity.ok(this.produtoService.buscarHistorico(id));
 	}
 
 	@PostMapping

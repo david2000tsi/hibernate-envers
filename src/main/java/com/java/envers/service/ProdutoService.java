@@ -1,8 +1,11 @@
 package com.java.envers.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.data.history.Revisions;
 import org.springframework.stereotype.Service;
 
 import com.java.envers.dto.ProdutoDto;
@@ -18,17 +21,29 @@ public class ProdutoService {
 
 	private final ProdutoRepository produtoRepository;
 
+	private ProdutoDto map(Produto p) {
+		return new ProdutoDto(p.getId(), p.getCategoria().getId(), p.getCategoria().getNome(), p.getQuantidade(), p.getValorUnitario());
+	}
+
 	public List<ProdutoDto> listar() {
 		return this.produtoRepository.findAll()
 			.stream()
-			.map(p -> new ProdutoDto(p.getId(), p.getCategoria().getId(), p.getCategoria().getNome(), p.getQuantidade(), p.getValorUnitario()))
+			.map(p -> this.map(p))
 			.collect(Collectors.toList());
 	}
 
 	public ProdutoDto buscar(Integer id) {
 		return this.produtoRepository.findById(id)
-			.map(p -> new ProdutoDto(p.getId(), p.getCategoria().getId(), p.getCategoria().getNome(), p.getQuantidade(), p.getValorUnitario()))
+			.map(p -> this.map(p))
 			.orElse(null);
+	}
+
+	public Map<Integer, ProdutoDto> buscarHistorico(Integer id) {
+		HashMap<Integer, ProdutoDto> result = new HashMap<>();
+		this.produtoRepository.findRevisions(id).forEach(r -> {
+			result.put(r.getRequiredRevisionNumber(), this.map(r.getEntity()));
+		});
+		return result;
 	}
 
 	public ProdutoDto criar(ProdutoDto produto) {
@@ -37,7 +52,7 @@ public class ProdutoService {
 		p.setQuantidade(produto.quantidade());
 		p.setValorUnitario(produto.valorUnitario());
 		p = this.produtoRepository.save(p);
-		return new ProdutoDto(p.getId(), p.getCategoria().getId(), p.getCategoria().getNome(), p.getQuantidade(), p.getValorUnitario());
+		return this.map(p);
 	}
 
 	public ProdutoDto atualizar(Integer id, ProdutoDto produto) {
@@ -47,7 +62,7 @@ public class ProdutoService {
 		p.setQuantidade(produto.quantidade());
 		p.setValorUnitario(produto.valorUnitario());
 		p = this.produtoRepository.save(p);
-		return new ProdutoDto(p.getId(), p.getCategoria().getId(), p.getCategoria().getNome(), p.getQuantidade(), p.getValorUnitario());
+		return this.map(p);
 	}
 
 	public void remover(Integer id) {
