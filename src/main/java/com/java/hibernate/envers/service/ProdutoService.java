@@ -1,4 +1,4 @@
-package com.java.envers.service;
+package com.java.hibernate.envers.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,10 +8,10 @@ import java.util.stream.Collectors;
 import org.springframework.data.history.Revisions;
 import org.springframework.stereotype.Service;
 
-import com.java.envers.dto.ProdutoDto;
-import com.java.envers.model.Categoria;
-import com.java.envers.model.Produto;
-import com.java.envers.repository.ProdutoRepository;
+import com.java.hibernate.envers.dto.ProdutoDto;
+import com.java.hibernate.envers.model.Categoria;
+import com.java.hibernate.envers.model.Produto;
+import com.java.hibernate.envers.repository.ProdutoRepository;
 
 import lombok.RequiredArgsConstructor;
 

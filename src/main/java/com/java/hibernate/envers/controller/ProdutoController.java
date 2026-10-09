@@ -1,4 +1,4 @@
-package com.java.envers.controller;
+package com.java.hibernate.envers.controller;
 
 import java.util.List;
 import java.util.Map;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.java.envers.dto.ProdutoDto;
-import com.java.envers.service.ProdutoService;
+import com.java.hibernate.envers.dto.ProdutoDto;
+import com.java.hibernate.envers.service.ProdutoService;
 
 import lombok.RequiredArgsConstructor;
 

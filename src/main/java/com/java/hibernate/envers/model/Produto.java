@@ -1,4 +1,4 @@
-package com.java.envers.model;
+package com.java.hibernate.envers.model;
 
 import java.math.BigDecimal;
 

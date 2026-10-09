@@ -1,13 +1,13 @@
-package com.java.envers;
+package com.java.hibernate.envers;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EnversApplication {
+public class HibernateEnversApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EnversApplication.class, args);
+		SpringApplication.run(HibernateEnversApplication.class, args);
 	}
 
 }

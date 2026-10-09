@@ -1,4 +1,4 @@
-package com.java.envers.dto;
+package com.java.hibernate.envers.dto;
 
 import java.math.BigDecimal;
 
