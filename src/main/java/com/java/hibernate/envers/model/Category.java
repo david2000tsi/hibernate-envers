@@ -18,21 +18,21 @@ import lombok.Setter;
 
 @Audited
 @Entity
-@Table(name = "Categoria")
+@Table(name = "Category")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Categoria {
+public class Category {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Integer id;
 
-	@Column(name = "nome", nullable = false)
-	private String nome;
+	@Column(name = "name", nullable = false)
+	private String name;
 
-	@OneToMany(mappedBy = "categoria")
-	private List<Produto> produtos;
+	@OneToMany(mappedBy = "category")
+	private List<Product> products;
 }

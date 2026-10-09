@@ -20,12 +20,12 @@ import lombok.Setter;
 
 @Audited
 @Entity
-@Table(name = "Produto")
+@Table(name = "Product")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Produto {
+public class Product {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,12 +33,12 @@ public class Produto {
 	private Integer id;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_categoria", nullable = false)
-	private Categoria categoria;
+	@JoinColumn(name = "id_category", nullable = false)
+	private Category category;
 
-	@Column(name = "quantidade", nullable = false)
-	private Integer quantidade;
+	@Column(name = "quantity", nullable = false)
+	private Integer quantity;
 
-	@Column(name = "valor_unitario", nullable = false)
-	private BigDecimal valorUnitario;
+	@Column(name = "unit_price", nullable = false)
+	private BigDecimal unitPrice;
 }
