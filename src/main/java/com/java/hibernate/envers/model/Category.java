@@ -2,7 +2,7 @@ package com.java.hibernate.envers.model;
 
 import java.util.List;
 
-import org.hibernate.annotations.Audited;
+import org.hibernate.envers.Audited;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

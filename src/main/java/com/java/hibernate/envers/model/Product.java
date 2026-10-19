@@ -2,7 +2,7 @@ package com.java.hibernate.envers.model;
 
 import java.math.BigDecimal;
 
-import org.hibernate.annotations.Audited;
+import org.hibernate.envers.Audited;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
