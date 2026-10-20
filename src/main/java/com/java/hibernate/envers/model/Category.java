@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,10 @@ public class Category {
 
 	@Column(name = "name", nullable = false)
 	private String name;
+
+	@Version
+	@Column(name = "version", nullable = false)
+	private Integer version;
 
 	@OneToMany(mappedBy = "category")
 	private List<Product> products;

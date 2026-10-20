@@ -1,4 +1,4 @@
 package com.java.hibernate.envers.dto;
 
-public record CategoryDto(Integer id, String name) {
+public record CategoryDto(Integer id, String name, Integer version) {
 }

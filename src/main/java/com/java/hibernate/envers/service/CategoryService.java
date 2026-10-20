@@ -3,6 +3,7 @@ package com.java.hibernate.envers.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -20,11 +21,11 @@ public class CategoryService {
 	private final CategoryRepository categoryRepository;
 
 	private CategoryDto map(Category p) {
-		return new CategoryDto(p.getId(), p.getName());
+		return Objects.nonNull(p) ? new CategoryDto(p.getId(), p.getName(), p.getVersion()) : null;
 	}
 
 	private Category map(CategoryDto p) {
-		return new Category(p.id(), p.name(), null);
+		return new Category(p.id(), p.name(), null, null);
 	}
 
 	public List<CategoryDto> list() {
@@ -56,10 +57,11 @@ public class CategoryService {
 	}
 
 	public CategoryDto update(Integer id, CategoryDto category) {
-		Category p = this.map(category);
-		p.setId(id);
-		p = this.categoryRepository.save(p);
-		return this.map(p);
+		Category saved = this.categoryRepository.findById(id).map(c -> {
+			c.setName(category.name());
+			return this.categoryRepository.save(c);
+		}).orElse(null);
+		return this.map(saved);
 	}
 
 	public void remove(Integer id) {
