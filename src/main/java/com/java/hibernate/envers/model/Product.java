@@ -3,6 +3,7 @@ package com.java.hibernate.envers.model;
 import java.math.BigDecimal;
 
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,6 +42,10 @@ public class Product {
 
 	@Column(name = "unit_price", nullable = false)
 	private BigDecimal unitPrice;
+
+	@NotAudited
+	@Column(name = "discount", nullable = true)
+	private BigDecimal discount;
 
 	@Version
 	@Column(name = "version", nullable = false)

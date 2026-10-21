@@ -24,11 +24,11 @@ public class ProductService {
 	private final CategoryRepository categoryRepository;
 
 	private ProductDto map(Product p) {
-		return  Objects.nonNull(p) ? new ProductDto(p.getId(), p.getCategory().getId(), p.getCategory().getName(), p.getCategory().getVersion(), p.getQuantity(), p.getUnitPrice(), p.getVersion()) : null;
+		return  Objects.nonNull(p) ? new ProductDto(p.getId(), p.getCategory().getId(), p.getCategory().getName(), p.getCategory().getVersion(), p.getQuantity(), p.getUnitPrice(), p.getDiscount(), p.getVersion()) : null;
 	}
 
 	private Product map(ProductDto p) {
-		return new Product(p.id(), new Category(p.category().id(), p.category().name(), null, null), p.quantity(), p.unitPrice(), null);
+		return new Product(p.id(), new Category(p.category().id(), p.category().name(), null, null), p.quantity(), p.unitPrice(), p.discount(), null);
 	}
 
 	public List<ProductDto> list() {
@@ -69,6 +69,7 @@ public class ProductService {
 		Product saved = this.productRepository.findById(id).map(p -> {
 			p.setQuantity(product.quantity());
 			p.setUnitPrice(product.unitPrice());
+			p.setDiscount(product.discount());
 			p.setCategory(c);
 			return this.productRepository.save(p);
 		}).orElse(null);
