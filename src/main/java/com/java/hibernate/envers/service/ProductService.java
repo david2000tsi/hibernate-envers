@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.java.hibernate.envers.dto.CategoryDto;
 import com.java.hibernate.envers.dto.ProductDto;
 import com.java.hibernate.envers.model.Category;
 import com.java.hibernate.envers.model.Product;
@@ -24,11 +25,19 @@ public class ProductService {
 	private final CategoryRepository categoryRepository;
 
 	private ProductDto map(Product p) {
-		return  Objects.nonNull(p) ? new ProductDto(p.getId(), p.getCategory().getId(), p.getCategory().getName(), p.getCategory().getVersion(), p.getQuantity(), p.getUnitPrice(), p.getDiscount(), p.getVersion()) : null;
+		if(Objects.isNull(p)) {
+			return null;
+		}
+		Category c = Objects.nonNull(p.getCategory()) ? p.getCategory() : new Category();
+		return new ProductDto(p.getId(), c.getId(), c.getName(), c.getVersion(), p.getQuantity(), p.getUnitPrice(), p.getDiscount(), p.getVersion());
 	}
 
 	private Product map(ProductDto p) {
-		return new Product(p.id(), new Category(p.category().id(), p.category().name(), null, null), p.quantity(), p.unitPrice(), p.discount(), null);
+		if(Objects.isNull(p)) {
+			return null;
+		}
+		CategoryDto c = Objects.nonNull(p.category()) ? p.category() : new CategoryDto();
+		return new Product(p.id(), new Category(c.id(), c.name(), null, null), p.quantity(), p.unitPrice(), p.discount(), null);
 	}
 
 	public List<ProductDto> list() {
@@ -72,7 +81,7 @@ public class ProductService {
 			p.setDiscount(product.discount());
 			p.setCategory(c);
 			return this.productRepository.save(p);
-		}).orElse(null);
+		}).orElseThrow(() -> new IllegalArgumentException("Missing product..."));
 		return this.map(saved);
 	}
 

@@ -60,7 +60,7 @@ public class CategoryService {
 		Category saved = this.categoryRepository.findById(id).map(c -> {
 			c.setName(category.name());
 			return this.categoryRepository.save(c);
-		}).orElse(null);
+		}).orElseThrow(() -> new IllegalArgumentException("Missing category..."));
 		return this.map(saved);
 	}
 
